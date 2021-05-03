@@ -45,5 +45,12 @@ for k, v in d.items():
             active.append(dif)
             ok = 0
 
-print("The device was ON:", functools.reduce(operator.add, active))
-print("The timestamps of errors:", error_event)
+if not active:
+    print("The device was OFF")
+else:
+    print("The device was ON:",functools.reduce(operator.add, active))
+
+if not error_event:
+    print("No errors")
+else:
+    print("The timestamps of errors:", error_event)
