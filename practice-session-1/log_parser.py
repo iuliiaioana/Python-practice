@@ -4,13 +4,13 @@ import functools
 import operator
 
 
-def convert_to_datetime_error(line):
+def datetime_to_string(line):
     match = re.search('(\w{3} \d{2} \d{2}:\d{2}:\d{2}:\d{2})', line)
     return match.group()
 
 
 def convert_to_datetime(line):
-    return datetime.strptime(convert_to_datetime_error(line), '%b %d %H:%M:%S:%f')
+    return datetime.strptime(datetime_to_string(line), '%b %d %H:%M:%S:%f')
 
 
 with open(file='device.log') as f:
@@ -21,7 +21,7 @@ d = {}
 active = []
 for line in f:
     if 'ERR' in line:
-        error_event.append(convert_to_datetime_error(line))
+        error_event.append(datetime_to_string(line))
 
     elif 'ON' in line:
         d[convert_to_datetime(line)] = 'ON'
